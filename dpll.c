@@ -83,7 +83,7 @@ void algo_dpll_rec(clauses_grille_solution clauses_grille, int nb_clauses, int d
             j++;
         }
     }
-    /*
+    
     for (int i = 0; i < nb_clauses; i++) {
         
         if (clauses_grille.clauses[i][1] == 0 && clauses_grille.clauses[i][0] != 0) {
@@ -92,7 +92,7 @@ void algo_dpll_rec(clauses_grille_solution clauses_grille, int nb_clauses, int d
             
             i = 0;
         }
-    }*/
+    }
     
 
     // On verifie s'il existe des clauses non vide
@@ -124,7 +124,7 @@ void algo_dpll_rec(clauses_grille_solution clauses_grille, int nb_clauses, int d
             printf("########## fin 1 rec ################\n");
             return;
         }
-        *(clauses_grille.validite) = 1;
+        //*(clauses_grille.validite) = 1;
 
         assigner_valeur_litteral(copie1, copie1.clauses[idx_clause_non_vide][0] * (-1), nb_clauses, dimension);
         algo_dpll_rec(copie1, nb_clauses, dimension);
@@ -140,6 +140,7 @@ void algo_dpll_rec(clauses_grille_solution clauses_grille, int nb_clauses, int d
         printf("Modele non valide !! \n");
         
     }
+    afficher_grille(clauses_grille.grille_solution, dimension);
     //printf("########## fin 3 rec ################\n");
 }
 
@@ -215,15 +216,12 @@ int est_isoler(int** clauses, int litteral, int nb_clauses) {
 clauses_grille_solution copier_clauses_grille(clauses_grille_solution original, int nb_clauses, int dimension) {
     clauses_grille_solution copie;
 
-    copie.validite = original.validite;
-
     // Copie des clauses
     int j;
     copie.clauses = malloc(sizeof(int*) * nb_clauses);
     for (int i = 0; i < nb_clauses; ++i) {
         copie.clauses[i] = calloc(dimension + 1, sizeof(int));
-    }
-    for (int i = 0; i < nb_clauses; ++i) {
+
         j = 0;
         while (original.clauses[i][j] != 0) {
             copie.clauses[i][j] = original.clauses[i][j];
@@ -235,8 +233,7 @@ clauses_grille_solution copier_clauses_grille(clauses_grille_solution original, 
     copie.grille_solution = malloc(sizeof(int*) * dimension);
     for (int i = 0; i < dimension; ++i) {
         copie.grille_solution[i] = calloc(dimension, sizeof(int));
-    }
-    for (int i = 0; i < dimension; ++i) {    
+      
         j = 0;
         while (j < dimension) {
             //printf("i : %d; j : %d, dimension : %d\n", i, j, dimension);
@@ -246,7 +243,8 @@ clauses_grille_solution copier_clauses_grille(clauses_grille_solution original, 
     }
 
     // Copie de la validité
-    copie.validite = original.validite;
+    copie.validite = malloc(sizeof(int*));
+    *(copie.validite) = *(original.validite);
 
     return copie;
 }
