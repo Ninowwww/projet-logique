@@ -71,7 +71,7 @@ clauses_grille_solution algo_dpll(int** clauses, int nb_clauses, int dimension) 
 void algo_dpll_rec(clauses_grille_solution * clauses_grille, int nb_clauses, int dimension, int prof ) {
   printf("########## deb rec %d ################\n", prof);
     afficher_grille(clauses_grille->grille_solution, dimension);
-
+    /*
     for (int i = 0; i < nb_clauses; i++) {
         int j = 0;
         while (clauses_grille->clauses[i][j] != 0) {
@@ -92,7 +92,7 @@ void algo_dpll_rec(clauses_grille_solution * clauses_grille, int nb_clauses, int
             i = 0;
         }
     }
-
+    */
     // On verifie s'il existe des clauses non vide
     int idx_clause_non_vide = -1;
     for (int i = 0; i < nb_clauses; i++) {
