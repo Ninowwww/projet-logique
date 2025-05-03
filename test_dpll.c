@@ -3,8 +3,8 @@
 
 int main() {
     int dimension, nb_clauses;
-    int** ensemble_clauses = lire_clauses("grille_vide.cnf", &nb_clauses, &dimension);
-    
+    int** ensemble_clauses = lire_clauses("grille_valide_partielle.cnf", &nb_clauses, &dimension);
+
     clauses_grille_solution solution = algo_dpll(ensemble_clauses, nb_clauses, dimension);
 
     if (*(solution.validite) == 0) {
